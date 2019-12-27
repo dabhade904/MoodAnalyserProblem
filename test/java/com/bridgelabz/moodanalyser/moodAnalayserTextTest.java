@@ -8,10 +8,10 @@ public class moodAnalayserTextTest {
 
     @Test
     public void whenGivenSadMessage_shouldReturnSad() {
-        MoodAnalyser analyser=new MoodAnalyser();
+        MoodAnalyser analyser=new MoodAnalyser("i am sad right now");
         String message= null;
         try {
-            message = analyser.analyse("i am sad right now");
+            message = analyser.analyse();
             Assert.assertEquals("Sad",message);
 
         } catch (MoodAnalyserException e) {
@@ -22,10 +22,10 @@ public class moodAnalayserTextTest {
    @Test
    public void whenGivenHappyMessage_shouldReturnHappy()
     {
-        MoodAnalyser moodAnalayser=new MoodAnalyser();
+        MoodAnalyser moodAnalayser=new MoodAnalyser("i m happy");
         String message = null;
         try {
-            message = moodAnalayser.analyse("i m happy");
+            message = moodAnalayser.analyse();
             Assert.assertEquals("happy",message);
         } catch (MoodAnalyserException e) {
             e.printStackTrace();
@@ -35,10 +35,10 @@ public class moodAnalayserTextTest {
     @Test
     public void whenGivenSadMessage_WithSAlphabetCapital_ShouldReturnSad()
     {
-        MoodAnalyser moodAnalyser=new MoodAnalyser();
+        MoodAnalyser moodAnalyser=new MoodAnalyser("i am Sad");
         String message = null;
         try {
-            message = moodAnalyser.analyse("i am Sad");
+            message = moodAnalyser.analyse();
             Assert.assertEquals("Sad",message);
 
         } catch (MoodAnalyserException e) {
@@ -49,12 +49,12 @@ public class moodAnalayserTextTest {
     @Test
     public void whenGivenNullMessage_ShouldReturnHappy ()
     {
-        MoodAnalyser moodAnalyser=new MoodAnalyser();
+        MoodAnalyser moodAnalyser=new MoodAnalyser(null);
         String message = null;
         try {
             ExpectedException expectedException=ExpectedException.none();
             expectedException.expect(MoodAnalyserException.class);
-            message = moodAnalyser.analyse(null);
+            message = moodAnalyser.analyse();
             Assert.assertEquals("happy",message);
         } catch (MoodAnalyserException e) {
             e.printStackTrace();
@@ -63,10 +63,10 @@ public class moodAnalayserTextTest {
 
     @Test
     public  void whenGivenMessageNull_ShouldReturnException(){
-        MoodAnalyser moodAnalyser=new MoodAnalyser();
+        MoodAnalyser moodAnalyser=new MoodAnalyser(null);
         String message="";
         try {
-            message=moodAnalyser.analyse(null);
+            message=moodAnalyser.analyse();
             Assert.assertEquals("happy",message);
         }catch (MoodAnalyserException e)
         {
