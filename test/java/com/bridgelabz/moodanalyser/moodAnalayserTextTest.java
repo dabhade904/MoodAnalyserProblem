@@ -118,33 +118,11 @@ public class moodAnalayserTextTest {
         Assert.assertEquals(true,obj2.equals(obj1));
     }
 
+
     @Test
-//    public  void  whenGivenClassName_improper_ShouldThrowMoodAnalsisException() throws MoodAnalyserException {
-//        try {
-//            Constructor<?> constructor = Class.forName("com.bridgelabz.moodanalyser.moodAnalyser").getConstructor(String.class);
-//            Object object=constructor.newInstance("please enter in proper");
-//            MoodAnalyser moodAnalyser=(MoodAnalyser)object;
-//            String mood=moodAnalyser.analyse();
-//            Assert.assertEquals("happy",mood);
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        } catch (MoodAnalyserException e) {
-//            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.CLASS_NOT_FOUND_EXCEPTION, "please enter in proper");
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
-
-    public void whenImproperClassName_shouldReturnException() {
+    public void whenGivenClassName_ImproperClassName_shouldReturnException() {
         try {
-            Constructor<?>constructor=Class.forName("com.bridgelabz.moodanalyse").getConstructor(String.class);
+            Constructor<?>constructor=Class.forName("com.bridgelabz.moodanalyser.moodAnalyser").getConstructor(String.class);
         } catch (NoSuchMethodException e) {
             e.printStackTrace();
             try {
@@ -158,8 +136,24 @@ public class moodAnalayserTextTest {
             }catch (MoodAnalyserException a){
                 a.printStackTrace();
             }
-
         }
+    }
 
+    @Test
+    public void whenGivenConstructor_NotProper_ShouldReturnCustomException() throws MoodAnalyserException {
+        Constructor<?>constructor=null;
+        try {
+            constructor=Class.forName("com.bridgelabz.moodanalyser.MoodAnalyser").getConstructor();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            try{
+                throw  new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_CONSTRCUTOR_FOUND,"Invalid Entry");
+            }catch (MoodAnalyserException a){
+                a.printStackTrace();
+            }
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
