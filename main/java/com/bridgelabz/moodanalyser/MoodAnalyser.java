@@ -9,6 +9,9 @@ public class MoodAnalyser {
         this.message=message;
     }
 
+    public MoodAnalyser() {
+
+    }
 
     @Override
     public boolean equals(Object o) {

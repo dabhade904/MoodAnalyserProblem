@@ -156,4 +156,22 @@ public class moodAnalayserTextTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    public  void whenGivenConstructorParameter_ShouldReturnObject(){
+        Constructor<?> constructor=MoodAnalyserFactory.getConstructor(String.class);
+        Object object=MoodAnalyserFactory.getObject(constructor,"i am happy");
+        MoodAnalyser moodAnalyser=(MoodAnalyser)object;
+        Assert.assertEquals(true,moodAnalyser.equals(new MoodAnalyser("i am happy")));
+    }
+
+    @Test
+    public  void whenGivenConstructorWithNoParameter_ShouldReturnObject() {
+        Constructor constructor= null;
+        constructor = MoodAnalyserFactory.getConstructor();
+        Object object=MoodAnalyserFactory.getObject(constructor);
+        MoodAnalyser moodAnalyser=(MoodAnalyser)object;
+        Assert.assertEquals(true,moodAnalyser.equals(new MoodAnalyser()));
+    }
+
 }
