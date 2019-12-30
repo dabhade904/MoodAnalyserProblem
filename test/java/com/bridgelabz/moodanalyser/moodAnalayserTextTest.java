@@ -6,6 +6,7 @@ import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static java.lang.Class.forName;
 
@@ -174,4 +175,14 @@ public class moodAnalayserTextTest {
         Assert.assertEquals(true,moodAnalyser.equals(new MoodAnalyser()));
     }
 
+    @Test
+    public void whenGivenObject_whenInvokeMethod_thenCorrect() {
+        MoodAnalyser moodAnalyzer = new MoodAnalyser(null);
+        try {
+            moodAnalyzer.analyse();
+        }
+        catch (MoodAnalyserException e){
+            Assert.assertEquals("Please, enter a valid message", e.getMessage());
+        }
+    }
 }

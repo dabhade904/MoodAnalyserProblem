@@ -4,6 +4,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public class MoodAnalyserFactory {
+    private static MoodAnalyserFactory moodAnalyserClass;
+
     public static MoodAnalyser createMoodAnalyser(String message) {
         try {
             Class<?> moodAnalyserClass = Class.forName("com.bridgelabz.moodanalyser.MoodAnalyser");
@@ -53,19 +55,3 @@ public class MoodAnalyserFactory {
         return moodObject;
     }
 }
-
-
-//    public static Object getObjectParameter(Constructor constructor,String... message) {
-//        Object obj=null;
-//        try {
-//             obj= constructor.newInstance(message);
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        }
-//        return obj;
-//    }
-//}
