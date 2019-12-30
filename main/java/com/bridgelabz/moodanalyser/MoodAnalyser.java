@@ -30,7 +30,7 @@ public class MoodAnalyser {
         try {
             if (message.length() == 0)
                 throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_EMPTY, "please enter in proper");
-            if (message.contains("sad"))
+            if (message.contains("Sad")|| message.contains("sad"))
 
                 return "Sad";
             else

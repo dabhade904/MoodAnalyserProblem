@@ -5,6 +5,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -177,9 +178,28 @@ public class moodAnalayserTextTest {
 
 
     @Test
-    public void whenGivenMethod_shouldInvokeReturnObject() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+    public void whenGivenMethod_shouldInvokeReturnObject() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException, MoodAnalyserException {
         Method method = MoodAnalyserReflector.getMethod("i am happy");
         String mood = (String) method.invoke(new MoodAnalyser("i am happy"));
         Assert.assertEquals("happy",mood);
     }
+
+    @Test
+    public void whenGivenFieldName_ifNotValid_shouldGiveException() {
+        Class<?> moodAnalyzerclass = null;
+        try {
+            moodAnalyzerclass = Class.forName("com.bridgelabz.moodanalyser.MoodAnalyser");
+            Field field = moodAnalyzerclass.getField("i am happy");
+            Assert.assertEquals(field,"message");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchFieldException e) {
+            try {
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_FIELD_FOUND, "No such field found");
+            } catch (MoodAnalyserException a) {
+                a.printStackTrace();
+            }
+        }
+    }
+
 }

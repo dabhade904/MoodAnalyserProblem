@@ -56,12 +56,19 @@ public class MoodAnalyserReflector {
         }
         return moodObject;
     }
+    
+    public static Method getMethod(String methodName) throws MoodAnalyserException {
+        try {
+            Constructor<?> constructor = getConstructor(String.class);
+            Object object = getObject(constructor, "sad");
+            Method analyze = object.getClass().getDeclaredMethod(methodName);
+            return analyze;
+        } catch (NoSuchMethodException e) {
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NO_SUCH_METHOD_FOUND,"Please enter the valid method name");
+        } catch (SecurityException e) {
+            e.printStackTrace();
+        }
 
-    public static Method getMethod(String message) throws NoSuchMethodException {
-        Constructor<?> constructor =getConstructor(String.class);
-        Object object = getObject(constructor,message);
-        Method analyze = object.getClass().getDeclaredMethod("analyse");
-        return analyze;
+        return null;
     }
-
 }
