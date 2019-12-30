@@ -82,7 +82,7 @@ public class moodAnalayserTextTest {
 
     @Test
     public void givenMoodAnalyserClass_WhenProper_ShouldReturnObject(){
-        MoodAnalyser moodAnalyser=MoodAnalyserFactory.createMoodAnalyser("i am in happy mood");
+        MoodAnalyser moodAnalyser= MoodAnalyserReflector.createMoodAnalyser("i am in happy mood");
         }
 
     @Test
@@ -115,7 +115,7 @@ public class moodAnalayserTextTest {
     public void whenGivenObjectWithProperMessage_ShouldReturnTrue()
     {
         MoodAnalyser obj1=new MoodAnalyser("i am happy");
-        MoodAnalyser obj2=MoodAnalyserFactory.createMoodAnalyser("i am happy");
+        MoodAnalyser obj2= MoodAnalyserReflector.createMoodAnalyser("i am happy");
         Assert.assertEquals(true,obj2.equals(obj1));
     }
 
@@ -160,8 +160,8 @@ public class moodAnalayserTextTest {
 
     @Test
     public  void whenGivenConstructorParameter_ShouldReturnObject(){
-        Constructor<?> constructor=MoodAnalyserFactory.getConstructor(String.class);
-        Object object=MoodAnalyserFactory.getObject(constructor,"i am happy");
+        Constructor<?> constructor= MoodAnalyserReflector.getConstructor(String.class);
+        Object object= MoodAnalyserReflector.getObject(constructor,"i am happy");
         MoodAnalyser moodAnalyser=(MoodAnalyser)object;
         Assert.assertEquals(true,moodAnalyser.equals(new MoodAnalyser("i am happy")));
     }
@@ -169,20 +169,17 @@ public class moodAnalayserTextTest {
     @Test
     public  void whenGivenConstructorWithNoParameter_ShouldReturnObject() {
         Constructor constructor= null;
-        constructor = MoodAnalyserFactory.getConstructor();
-        Object object=MoodAnalyserFactory.getObject(constructor);
+        constructor = MoodAnalyserReflector.getConstructor();
+        Object object= MoodAnalyserReflector.getObject(constructor);
         MoodAnalyser moodAnalyser=(MoodAnalyser)object;
         Assert.assertEquals(true,moodAnalyser.equals(new MoodAnalyser()));
     }
 
+
     @Test
-    public void whenGivenObject_whenInvokeMethod_thenCorrect() {
-        MoodAnalyser moodAnalyzer = new MoodAnalyser(null);
-        try {
-            moodAnalyzer.analyse();
-        }
-        catch (MoodAnalyserException e){
-            Assert.assertEquals("Please, enter a valid message", e.getMessage());
-        }
+    public void whenGivenMethod_shouldInvokeReturnObject() throws InvocationTargetException, IllegalAccessException, NoSuchMethodException {
+        Method method = MoodAnalyserReflector.getMethod("i am happy");
+        String mood = (String) method.invoke(new MoodAnalyser("i am happy"));
+        Assert.assertEquals("happy",mood);
     }
 }
