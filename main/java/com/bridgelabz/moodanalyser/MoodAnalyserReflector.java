@@ -43,20 +43,21 @@ public class MoodAnalyserReflector {
     }
 
 
-    public static Object getObject(Constructor<?> constructor, String... message) {
-        Object moodObject = null;
+    public static Object getObject(Constructor constructor, String... message) throws MoodAnalyserException {
+        Object moodObj = null;
         try {
-            moodObject = constructor.newInstance(message);
+            moodObj = constructor.newInstance(message);
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.ENTERED_NULL,"Please enter valid message");
         }
-        return moodObject;
+        return moodObj;
     }
-    
     public static Method getMethod(String methodName) throws MoodAnalyserException {
         try {
             Constructor<?> constructor = getConstructor(String.class);

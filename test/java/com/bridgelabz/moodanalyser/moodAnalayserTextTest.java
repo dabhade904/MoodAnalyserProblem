@@ -160,7 +160,7 @@ public class moodAnalayserTextTest {
     }
 
     @Test
-    public  void whenGivenConstructorParameter_ShouldReturnObject(){
+    public  void whenGivenConstructorParameter_ShouldReturnObject() throws MoodAnalyserException {
         Constructor<?> constructor= MoodAnalyserReflector.getConstructor(String.class);
         Object object= MoodAnalyserReflector.getObject(constructor,"i am happy");
         MoodAnalyser moodAnalyser=(MoodAnalyser)object;
@@ -168,7 +168,7 @@ public class moodAnalayserTextTest {
     }
 
     @Test
-    public  void whenGivenConstructorWithNoParameter_ShouldReturnObject() {
+    public  void whenGivenConstructorWithNoParameter_ShouldReturnObject() throws MoodAnalyserException {
         Constructor constructor= null;
         constructor = MoodAnalyserReflector.getConstructor();
         Object object= MoodAnalyserReflector.getObject(constructor);
@@ -201,5 +201,14 @@ public class moodAnalayserTextTest {
             }
         }
     }
+    @Test
+    public void whenGivenNullMessage_shouldThrowException() {
+        try {
+            Constructor constructor = MoodAnalyserReflector.getConstructor(String.class);
+            MoodAnalyserReflector.getObject(constructor, null);
+        } catch (MoodAnalyserException e) {
+            e.printStackTrace();
+        }
 
+    }
 }
